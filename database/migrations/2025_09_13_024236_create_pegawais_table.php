@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('pegawais', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id_pegawai');
             $table->string('kode_pegawai')->unique();
             $table->string('nama_pegawai');
             $table->text('alamat')->nullable();
