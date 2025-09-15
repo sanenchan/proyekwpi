@@ -13,7 +13,7 @@ class Pegawai extends Model
     protected $table = 'pegawais';
 
     // Primary key (opsional, default 'id')
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_pegawai';
 
     // Kolom yang boleh diisi mass-assignment
     protected $fillable = [
