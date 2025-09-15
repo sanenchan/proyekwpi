@@ -11,7 +11,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('stok_kayus', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id_stok_kayu');
+            // $table->string('lahan');
+            $table->decimal('panjang');
+            $table->integer('jumlah_bata');
+            $table->decimal('kubikasi');
+            $table->integer('harga');
+            $table->date('tanggal_masuk');
+            $table->string('detail_nomor_seri');
             $table->timestamps();
         });
     }
