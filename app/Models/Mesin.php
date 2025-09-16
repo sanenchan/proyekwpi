@@ -15,9 +15,10 @@ class Mesin extends Model
     // Mass assignable
     protected $fillable = [
         'nama_mesin',
-        'lokasi',
-        'id_kategori_mesin', // relasi ke KategoriMesin
-        'keterangan',
+        'ongkos_mesin',
+        'no_akun',
+        'detail_mesin',
+        'id_kategori_mesin', // nanti untuk relasi dropdown kategori
     ];
 
     // Relasi ke kategori mesin

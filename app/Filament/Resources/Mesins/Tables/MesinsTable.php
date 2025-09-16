@@ -15,20 +15,27 @@ class MesinsTable
     {
         return $table
             ->columns([
-                TextColumn::make('id_kategori_mesin')
-                    ->numeric()
-                    ->sortable(),
+                // Ubah dari id_kategori_mesin menjadi menampilkan nama kategori
+                TextColumn::make('kategori.nama_kategori')
+                    ->label('Kategori Mesin')
+                    ->sortable()
+                    ->searchable(),
+
                 TextColumn::make('nama_mesin')
                     ->searchable(),
+
                 TextColumn::make('ongkos_mesin')
                     ->numeric()
                     ->sortable(),
+
                 TextColumn::make('no_akun')
                     ->searchable(),
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
