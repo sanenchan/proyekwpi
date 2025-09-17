@@ -17,4 +17,12 @@ class Ukuran extends Model
         'tinggi',
         'tebal'
     ];
+    public function targets()
+    {
+        return $this->hasMany(Target::class, 'id_ukuran', 'id_ukuran');
+    }
+    public function getDimensiAttribute(): string
+    {
+        return "{$this->panjang} x {$this->tinggi} x {$this->tebal}";
+    }
 }

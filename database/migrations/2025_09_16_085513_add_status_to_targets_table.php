@@ -5,26 +5,21 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-
-
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('kategori_mesins', function (Blueprint $table) {
-            $table->bigIncrements('id_kategori_mesin');
-            $table->string('nama_kategori');
-            $table->timestamps();
+        Schema::table('targets', function (Blueprint $table) {
+            $table->string('status')->default('diajukan'); // default 'diajukan'
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_mesins');
+        Schema::table('targets', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
     }
 
 };

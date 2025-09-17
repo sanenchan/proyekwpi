@@ -16,4 +16,12 @@ class JenisKayu extends Model
         'kode_kayu',
         'nama_kayu',
     ];
+    public function stokKayus()
+    {
+        return $this->hasMany(\App\Models\StokKayu::class, 'id_jenis_kayu', 'id_jenis_kayu');
+    }
+    public function targets()
+    {
+        return $this->hasMany(Target::class, 'id_jenis_kayu', 'id_jenis_kayu');
+    }
 }

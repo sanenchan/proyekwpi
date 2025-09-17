@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('kategori_mesins', function (Blueprint $table) {
+        Schema::create('targets', function (Blueprint $table) {
             // 1. id_target sebagai primary key
             $table->bigIncrements('id_target');
 
@@ -44,6 +44,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('kategori_mesins');
+        Schema::dropIfExists('targets');
     }
 };

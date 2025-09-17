@@ -16,5 +16,11 @@ class Lahan extends Model
         'kode_lahan',
         'nama_lahan',
     ];
+    public function stokKayus()
+    {
+        return $this->hasMany(\App\Models\StokKayu::class, 'id_lahan', 'id_lahan');
+    }
 
 }
+
+

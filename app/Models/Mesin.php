@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Mesin extends Model
 {
     use HasFactory;
@@ -25,5 +26,9 @@ class Mesin extends Model
     public function kategori()
     {
         return $this->belongsTo(KategoriMesin::class, 'id_kategori_mesin');
+    }
+    public function targets()
+    {
+        return $this->hasMany(Target::class, 'id_mesin', 'id_mesin');
     }
 }

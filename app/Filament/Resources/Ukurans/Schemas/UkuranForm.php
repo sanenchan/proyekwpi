@@ -11,13 +11,13 @@ class UkuranForm
     {
         return $schema
             ->components([
-                TextInput::make('panjang (mm)')
+                TextInput::make('panjang')
                     ->required()
                     ->numeric(),
-                TextInput::make('tinggi (mm)')
+                TextInput::make('tinggi')
                     ->required()
                     ->numeric(),
-                TextInput::make('tebal (mm)')
+                TextInput::make('tebal')
                     ->required()
                     ->numeric(),
             ]);
