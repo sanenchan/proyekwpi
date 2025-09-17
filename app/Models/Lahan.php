@@ -20,6 +20,10 @@ class Lahan extends Model
     {
         return $this->hasMany(\App\Models\StokKayu::class, 'id_lahan', 'id_lahan');
     }
+    public function produksiRotaries()
+    {
+        return $this->hasMany(Produksi_Rotary::class, 'id_lahan', 'id_lahan');
+    }
 
 }
 

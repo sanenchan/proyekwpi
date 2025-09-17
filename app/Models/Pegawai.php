@@ -30,4 +30,9 @@ class Pegawai extends Model
         'jenis_kelamin_pegawai' => 'boolean',
         'tanggal_masuk' => 'date',
     ];
+
+    public function detailProduksiRotaries()
+    {
+        return $this->hasMany(DetailProduksiRotary::class, 'id_pegawai', 'id');
+    }
 }

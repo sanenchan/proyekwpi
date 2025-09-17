@@ -38,7 +38,7 @@ class Target extends Model
         return $this->belongsTo(Mesin::class, 'id_mesin', 'id_mesin');
     }
 
-    public function ukuran()
+    public function ukuranModel()
     {
         return $this->belongsTo(Ukuran::class, 'id_ukuran', 'id_ukuran');
     }
@@ -46,6 +46,10 @@ class Target extends Model
     public function jenisKayu()
     {
         return $this->belongsTo(JenisKayu::class, 'id_jenis_kayu', 'id_jenis_kayu');
+    }
+    public function produksiRotaries()
+    {
+        return $this->hasMany(Produksi_Rotary::class, 'id_target', 'id_target');
     }
 
 }
