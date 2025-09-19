@@ -36,7 +36,7 @@ return new class extends Migration {
 
             // 9. potongan / lembur = targetperorang / gaji
             $table->decimal('potongan', 15, 2)
-                ->virtualAs('targetperorang / gaji'); // Generated Column
+                ->virtualAs('gaji / targetperorang'); // Generated Column
 
             $table->timestamps();
         });

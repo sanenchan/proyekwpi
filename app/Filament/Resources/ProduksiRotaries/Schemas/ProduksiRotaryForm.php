@@ -36,7 +36,9 @@ class ProduksiRotaryForm
                         ->label('Lahan')
                         ->relationship('lahan', 'kode_lahan')
                         ->required(),
-
+                    TextInput::make('jumlah_batang')
+                        ->numeric()
+                        ->default(0),
                     TextInput::make('hasilkw1')
                         ->numeric()
                         ->default(0),
@@ -55,25 +57,29 @@ class ProduksiRotaryForm
 
                     Select::make('jam_kerja_mulai')
                         ->label('Jam Mulai')
-                        ->options(collect(
-                            CarbonPeriod::create('00:00', '30 minutes', '23:30')
-                                ->toArray()
-                        )->mapWithKeys(fn($time) => [
-                                $time->format('H:i') => $time->format('H:i')
-                            ]))
+                        ->options(
+                            collect(CarbonPeriod::create('00:00', '30 minutes', '23:30')->toArray())
+                                ->mapWithKeys(fn($time) => [
+                                    $time->format('H:i') => $time->format('H.i') // tampilkan pakai titik
+                                ])
+                        )
                         ->searchable()
-                        ->required(),
+                        ->required()
+                        ->formatStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->format('H:i') : null)
+                        ->dehydrateStateUsing(fn($state) => $state ? $state . ':00' : null),
 
                     Select::make('jam_kerja_selesai')
                         ->label('Jam Selesai')
-                        ->options(collect(
-                            CarbonPeriod::create('00:00', '30 minutes', '23:30')
-                                ->toArray()
-                        )->mapWithKeys(fn($time) => [
-                                $time->format('H:i') => $time->format('H:i')
-                            ]))
+                        ->options(
+                            collect(CarbonPeriod::create('00:00', '30 minutes', '23:30')->toArray())
+                                ->mapWithKeys(fn($time) => [
+                                    $time->format('H:i') => $time->format('H.i') // tampilkan pakai titik
+                                ])
+                        )
                         ->searchable()
-                        ->required(),
+                        ->required()
+                        ->formatStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->format('H:i') : null)
+                        ->dehydrateStateUsing(fn($state) => $state ? $state . ':00' : null),
 
                     Forms\Components\Textarea::make('kendala')
                         ->columnSpanFull(),
@@ -124,4 +130,5 @@ class ProduksiRotaryForm
                 ->collapsible(),
         ]);
     }
+
 }

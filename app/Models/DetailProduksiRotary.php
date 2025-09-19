@@ -19,7 +19,20 @@ class DetailProduksiRotary extends Model
         'id_pegawai',
         'potongan_target',
     ];
+    protected static function booted()
+    {
+        static::saved(function ($detail) {
+            $detail->produksiRotary->update([
+                'pekerja' => $detail->produksiRotary->detailRotaries()->count()
+            ]);
+        });
 
+        static::deleted(function ($detail) {
+            $detail->produksiRotary->update([
+                'pekerja' => $detail->produksiRotary->detailRotaries()->count()
+            ]);
+        });
+    }
     // 🔗 Relasi ke ProduksiRotary
     public function produksiRotary()
     {

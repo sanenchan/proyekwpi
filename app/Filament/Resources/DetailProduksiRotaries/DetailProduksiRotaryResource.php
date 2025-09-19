@@ -33,6 +33,10 @@ class DetailProduksiRotaryResource extends Resource
     {
         return DetailProduksiRotaryInfolist::configure($schema);
     }
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false; // ⛔ jangan daftarkan di sidebar
+    }
 
     public static function table(Table $table): Table
     {

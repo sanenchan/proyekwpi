@@ -11,6 +11,7 @@ use App\Filament\Resources\JenisKayus\Schemas\JenisKayuInfolist;
 use App\Filament\Resources\JenisKayus\Tables\JenisKayusTable;
 use App\Models\JenisKayu;
 use BackedEnum;
+use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,6 +19,9 @@ use Filament\Tables\Table;
 
 class JenisKayuResource extends Resource
 {
+    //Permision
+
+
     protected static ?string $model = JenisKayu::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;

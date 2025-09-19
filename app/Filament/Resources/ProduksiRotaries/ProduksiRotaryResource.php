@@ -15,9 +15,18 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-
+use Illuminate\Support\Facades\Auth;
 class ProduksiRotaryResource extends Resource
 {
+    protected static ?string $navigationLabel = 'Users';
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $permission = 'view users'; // harus sesuai permission Spatie
+    protected function afterSave($record): void
+    {
+        $record->pekerja = $record->detailRotaries()->count();
+        $record->saveQuietly(); // hindari infinite loop
+    }
     protected static ?string $model = Produksi_Rotary::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -55,4 +64,27 @@ class ProduksiRotaryResource extends Resource
             'edit' => EditProduksiRotary::route('/{record}/edit'),
         ];
     }
+
+    // //untuk level user. 
+    // public static function canViewAny(): bool
+    // {
+    //     return Auth()->user()?->can('produksi__rotary.view') ?? false;
+    // }
+
+    // public static function canCreate(): bool
+    // {
+    //     return auth()->user()?->can('produksi__rotary.create') ?? false;
+    // }
+
+    // public static function canEdit($record): bool
+    // {
+    //     return auth()->user()?->can('produksi__rotary.edit') ?? false;
+    // }
+
+    // public static function canDelete($record): bool
+    // {
+    //     return auth()->user()?->can('produksi__rotary.delete') ?? false;
+    // }
+
+
 }

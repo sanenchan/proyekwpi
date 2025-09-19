@@ -14,6 +14,8 @@ class ListProduksiRotaries extends ListRecords
     {
         return [
             CreateAction::make(),
+
         ];
+
     }
 }

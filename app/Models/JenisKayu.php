@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class JenisKayu extends Model
 {
+
     protected $table = 'jenis_kayus';
 
     // Primary key (opsional, default 'id')
