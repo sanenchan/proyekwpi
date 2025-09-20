@@ -18,10 +18,31 @@ use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 class ProduksiRotaryResource extends Resource
 {
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->can('ViewAny:ProduksiRotary') ?? false;
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->can('Create:ProduksiRotary') ?? false;
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->can('Update:ProduksiRotary') ?? false;
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->can('Delete:ProduksiRotary') ?? false;
+    }
+
+
     protected static ?string $navigationLabel = 'Users';
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $permission = 'view users'; // harus sesuai permission Spatie
+    // harus sesuai permission Spatie
     protected function afterSave($record): void
     {
         $record->pekerja = $record->detailRotaries()->count();
