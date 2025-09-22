@@ -18,6 +18,11 @@ use Filament\Tables\Table;
 
 class ProduksiRotaryResource extends Resource
 {
+    protected function afterSave($record): void
+    {
+        $record->pekerja = $record->detailRotaries()->count();
+        $record->saveQuietly(); // hindari infinite loop
+    }
     protected static ?string $model = Produksi_Rotary::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;

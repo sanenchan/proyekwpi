@@ -18,6 +18,10 @@ use Filament\Tables\Table;
 
 class DetailProduksiRotaryResource extends Resource
 {
+      public static function shouldRegisterNavigation(): bool
+    {
+        return false; // ⛔ jangan daftarkan di sidebar
+    }
     protected static ?string $model = DetailProduksiRotary::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;

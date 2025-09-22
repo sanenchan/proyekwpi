@@ -7,6 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailProduksiRotary extends Model
 {
+    protected static function booted()
+    {
+        static::saved(function ($detail) {
+            $detail->produksiRotary->update([
+                'pekerja' => $detail->produksiRotary->detailRotaries()->count()
+            ]);
+        });
+
+        static::deleted(function ($detail) {
+            $detail->produksiRotary->update([
+                'pekerja' => $detail->produksiRotary->detailRotaries()->count()
+            ]);
+        });
+    }
+
     use HasFactory;
 
     protected $table = 'detail_produksi_rotaries';
@@ -18,7 +33,14 @@ class DetailProduksiRotary extends Model
         'id_rotary',
         'id_pegawai',
         'potongan_target',
+        'jam_mulai',
+        'jam_selesai',
+
     ];
+    //  public static function shouldRegisterNavigation(): bool
+    // {
+    //     return false; // ⛔ jangan daftarkan di sidebar
+    // }
 
     // 🔗 Relasi ke ProduksiRotary
     public function produksiRotary()
@@ -31,4 +53,5 @@ class DetailProduksiRotary extends Model
     {
         return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
     }
+
 }
