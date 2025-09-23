@@ -151,52 +151,36 @@ class ProduksiRotaryForm
 
                             Select::make('jam_mulai')
                                 ->label('Jam Mulai')
-                                ->options(self::timeOptions())
+                                ->options(
+                                    collect(CarbonPeriod::create('00:00', '30 minutes', '23:30')->toArray())
+                                        ->mapWithKeys(fn($time) => [
+                                            $time->format('H:i') => $time->format('H.i') // key: 06:00, label: 06.00
+                                        ])
+                                )
                                 ->searchable()
                                 ->required()
+                                // Saat load dari DB, konversi ke format 'H:i' biar match dengan key di options
                                 ->formatStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->format('H:i') : null)
-                                ->dehydrateStateUsing(fn($state) => $state ? $state . ':00' : null)
-                                ->afterStateHydrated(function ($component, $state, $set, $get) {
-                                    if (!$state) {
-                                        $detailRotaries = collect($get('detailRotaries') ?? []);
-                                        $lastItem = $detailRotaries->slice(0, -1)->last(); // ambil baris sebelum terakhir
-                                        if ($lastItem && isset($lastItem['jam_mulai'])) {
-                                            $component->state($lastItem['jam_mulai']);
-                                        }
-                                    }
-                                })
-                                ->afterStateUpdated(function ($state, $set) {
-                                    if ($state) {
-                                        $next = \Carbon\Carbon::parse($state)->addMinutes(30)->format('H:i');
-                                        $set('jam_selesai', $next);
-                                    }
-                                }),
+
+                                // Saat simpan, konversi jadi 'H:i:s' supaya konsisten ke DB
+                                ->dehydrateStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->format('H:i:s') : null),
+
+
 
                             // Jam Selesai
                             Select::make('jam_selesai')
                                 ->label('Jam Selesai')
-                                ->options(self::timeOptions())
+                                ->options(
+                                    collect(CarbonPeriod::create('00:00', '30 minutes', '23:30')->toArray())
+                                        ->mapWithKeys(fn($time) => [
+                                            $time->format('H:i') => $time->format('H.i') // tampilkan pakai titik
+                                        ])
+                                )
                                 ->searchable()
                                 ->required()
                                 ->formatStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->format('H:i') : null)
-                                ->dehydrateStateUsing(fn($state) => $state ? $state . ':00' : null)
-                                ->afterStateHydrated(function ($component, $state, $set, $get) {
-                                    if (!$state) {
-                                        $detailRotaries = collect($get('detailRotaries') ?? []);
-                                        $lastItem = $detailRotaries->slice(0, -1)->last(); // ambil baris sebelum terakhir
-                                        if ($lastItem && isset($lastItem['jam_selesai'])) {
-                                            $component->state($lastItem['jam_selesai']);
-                                        }
-                                    }
-                                })
-                                ->rule(function ($get) {
-                                    return function (string $attribute, $value, $fail) use ($get) {
-                                        $jamMulai = $get('jam_mulai');
-                                        if ($jamMulai && $value <= $jamMulai) {
-                                            $fail('Jam selesai harus lebih besar dari jam mulai.');
-                                        }
-                                    };
-                                }),
+                                ->dehydrateStateUsing(fn($state) => $state ? $state . ':00' : null),
+
                         ])
                         ->columns(3)
                         ->addActionLabel('Tambah Pekerja'),

@@ -127,6 +127,9 @@ class ProduksiRotaryInfolist
                                         ? 'Rp ' . number_format($state, 0, ',', '.')
                                         : 'Rp 0'
                                     ),
+                                TextEntry::make('jam_mulai')->label('Nama Pegawai'),
+                                TextEntry::make('jam_selsai')->label('Nama Pegawai'),
+
 
                             ])
                             ->columns(2),
